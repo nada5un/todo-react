@@ -24,6 +24,7 @@ const TodoEditor = ({ onSubmit }) => {
                         onSubmit(text);
                         setText("");
                     }}
+                    type="button"
                     className="TodoEditor__button"
                 >
                     추가

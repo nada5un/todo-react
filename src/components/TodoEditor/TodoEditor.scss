@@ -1,8 +1,32 @@
 .TodoEditor {
     &__wrapper {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
     }
     &__input {
+        flex: 1;
+        padding: 10px 20px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-size: 16px;
+        box-shadow: none;
+        &:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        &::placeholder {
+            color: #999;
+        }
     }
     &__button {
+        padding: 10px 20px;
+        background-color: black;
+        color: white;
+        border-radius: 3px;
+        border: none;
+        cursor: pointer;
+        // I want to make butto flat without elevation
+        box-shadow: none;
     }
 }
