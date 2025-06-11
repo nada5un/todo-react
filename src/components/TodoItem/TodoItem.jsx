@@ -11,7 +11,7 @@ const TodoItem = ({ todo }) => {
                 </label>
             </div>
             <div className="TodoItem__title">title</div>
-            <div className="TodoItem__date">2023.1.2</div>
+            <div className="TodoItem__date">{new Date().toLocaleDateString()}</div>
             <button className="TodoItem__delete">삭제</button>
         </div>
     );
