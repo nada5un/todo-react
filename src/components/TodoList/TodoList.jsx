@@ -1,4 +1,5 @@
 // cmd + \ : 에디터 분할
+// control + command + 방향키 : 에디터 이동
 import TodoItem from "../TodoItem/TodoItem";
 import "./TodoList.scss";
 const TodoList = () => {

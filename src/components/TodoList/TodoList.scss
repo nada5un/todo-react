@@ -6,7 +6,7 @@
     input {
         flex: 1;
         border: none;
-        border-bottom: 2px solid #ccc;
+        border-bottom: 1px solid #ccc;
         border-radius: 0;
         padding: 10px 0;
         box-shadow: none;
@@ -15,7 +15,7 @@
 
         &:focus {
             outline: none;
-            border-bottom: 2px solid #1f93ff;
+            border-bottom: 1px solid #1f93ff;
         }
         &::placeholder {
             color: #999;
