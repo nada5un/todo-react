@@ -6,10 +6,14 @@ const TodoList = () => {
     return (
         <div className="TodoList">
             <h3>Todo List</h3>
-            <div className="TodoList__wrapper">
+            <div className="TodoList__searchbar">
                 <input type="text" placeholder="검색어를 입력하세요" />
             </div>
-            <TodoItem></TodoItem>
+            <div className="TodoList__items">
+                <TodoItem></TodoItem>
+                <TodoItem></TodoItem>
+                <TodoItem></TodoItem>
+            </div>
         </div>
     );
 };

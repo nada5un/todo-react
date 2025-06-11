@@ -1,24 +1,31 @@
 .TodoList {
-    &__wrapper {
+    &__searchbar {
         display: flex;
         margin-bottom: 20px;
-    }
-    input {
-        flex: 1;
-        border: none;
-        border-bottom: 1px solid #ccc;
-        border-radius: 0;
-        padding: 10px 0;
-        box-shadow: none;
-        background: transparent;
-        transition: border-color 0.2s;
 
-        &:focus {
-            outline: none;
-            border-bottom: 1px solid #1f93ff;
+        input {
+            flex: 1;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            border-radius: 0;
+            padding: 10px 0;
+            box-shadow: none;
+            background: transparent;
+            transition: border-color 0.2s;
+
+            &:focus {
+                outline: none;
+                border-bottom: 1px solid #1f93ff;
+            }
+            &::placeholder {
+                color: #999;
+            }
         }
-        &::placeholder {
-            color: #999;
-        }
+    }
+
+    &__items {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
 }
