@@ -43,8 +43,8 @@
         }
 
         input[type="checkbox"]:checked + .custom-checkbox {
-            border-color: #4caf50;
-            background: #4caf50;
+            border-color: #1f93ff;
+            background: #1f93ff;
         }
 
         input[type="checkbox"]:checked + .custom-checkbox::after {
@@ -58,5 +58,20 @@
             border-width: 0 3px 3px 0;
             transform: translate(-50%, -50%) rotate(45deg);
         }
+    }
+
+    &__title {
+        flex: 1;
+        font-size: 16px;
+        text-decoration: none;
+        padding: 10px 0;
+        transition: color 0.2s;
+    }
+
+    button {
+        padding: 10px 12px;
+        border: none;
+        border-radius: 8px;
+        margin-left: 8px;
     }
 }
