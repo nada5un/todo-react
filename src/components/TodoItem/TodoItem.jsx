@@ -1,7 +1,7 @@
 // import css
 import "./TodoItem.scss";
 
-const TodoItem = ({ todo }) => {
+const TodoItem = ({ todo, onDelete }) => {
     return (
         <div className="TodoItem">
             <div className="TodoItem__checkbox">
@@ -10,9 +10,16 @@ const TodoItem = ({ todo }) => {
                     <span className="custom-checkbox"></span>
                 </label>
             </div>
-            <div className="TodoItem__title">title</div>
+            <div className="TodoItem__title">{todo.title}</div>
             <div className="TodoItem__date">{new Date().toLocaleDateString()}</div>
-            <button className="TodoItem__delete">삭제</button>
+            <button
+                onClick={() => {
+                    onDelete();
+                }}
+                className="TodoItem__delete"
+            >
+                삭제
+            </button>
         </div>
     );
 };
