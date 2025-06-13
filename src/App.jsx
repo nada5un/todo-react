@@ -8,22 +8,22 @@ import TodoList from "./components/TodoList/TodoList";
 function App() {
     class TodoClass {
         // make id time-stamp based
-        constructor({ id = 0, isCompleted = false, title = "", date = new Date().toDateString() }) {
+        constructor({ id = 0, isDone = false, content = "", createdDate = new Date().toDateString() }) {
             this.id = id;
-            this.isCompleted = isCompleted;
-            this.title = title;
-            this.date = date;
+            this.isDone = isDone;
+            this.content = content;
+            this.createdDate = createdDate;
         }
     }
 
     const [todoList, setTodoList] = useState([]);
 
-    const onClickAddTodo = (title) => {
+    const onClickAddTodo = (content) => {
         const newTodo = new TodoClass({
             // make id unique by using the current time in milliseconds
             id: Date.now(),
-            title: title,
-            date: new Date().toDateString(),
+            content: content,
+            createdDate: new Date().toDateString(),
         });
 
         setTodoList((prevList) => [...prevList, newTodo]);

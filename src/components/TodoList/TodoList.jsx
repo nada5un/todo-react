@@ -19,7 +19,7 @@ const TodoList = ({ list, onDelete }) => {
             </div>
             <div className="TodoList__items">
                 {list
-                    .filter((todo) => todo.title.toLowerCase().includes(search.toLowerCase()))
+                    .filter((todo) => todo.content.toLowerCase().includes(search.toLowerCase()))
                     .map((todo) => (
                         <TodoItem key={todo.id} todo={todo} onDelete={onDelete} />
                     ))}

@@ -10,7 +10,7 @@ const TodoItem = ({ todo, onDelete }) => {
                     <span className="custom-checkbox"></span>
                 </label>
             </div>
-            <div className="TodoItem__title">{todo.title}</div>
+            <div className="TodoItem__title">{todo.content}</div>
             <div className="TodoItem__date">{new Date().toLocaleDateString()}</div>
             <button
                 onClick={() => {
