@@ -7,11 +7,17 @@ import TodoList from "./components/TodoList/TodoList";
 
 function App() {
     class TodoClass {
-        // make id time-stamp based
-        constructor({ id = 0, isDone = false, content = "", createdDate = new Date().toDateString() }) {
+        constructor(params = {}) {
+            const {
+                id = Date.now(),
+                content = "",
+                isCompleted = false, // 예전 isDone → isCompleted로 바꾼 예시
+                createdDate = new Date().toDateString(),
+            } = params;
+
             this.id = id;
-            this.isDone = isDone;
             this.content = content;
+            this.isCompleted = isCompleted;
             this.createdDate = createdDate;
         }
     }
