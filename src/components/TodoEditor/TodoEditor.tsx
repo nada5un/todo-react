@@ -5,7 +5,7 @@ interface TodoEditorProps {
     onCreate: (content: string) => void;
 }
 
-const TodoEditor: React.FC<TodoEditorProps> = ({ onCreate }) => {
+function TodoEditor({ onCreate }: TodoEditorProps) {
     const inputRef = useRef<HTMLInputElement>(null);
     const [text, setText] = useState("");
 
@@ -37,6 +37,6 @@ const TodoEditor: React.FC<TodoEditorProps> = ({ onCreate }) => {
             </form>
         </div>
     );
-};
+}
 
 export default TodoEditor;
