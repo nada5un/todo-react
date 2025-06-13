@@ -1,17 +1,20 @@
-// commant + \ : 에디터 탭 추가
 import "./TodoEditor.scss";
 import { useState, useRef } from "react";
 
-const TodoEditor = ({ onCreate }) => {
-    const inputRef = useRef(null); // if you want to focus on input after submit
+interface TodoEditorProps {
+    onCreate: (content: string) => void;
+}
+
+const TodoEditor: React.FC<TodoEditorProps> = ({ onCreate }) => {
+    const inputRef = useRef<HTMLInputElement>(null);
     const [text, setText] = useState("");
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setText(e.target.value);
     };
 
     const onClickAddTodo = () => {
-        inputRef.current.focus();
+        inputRef.current?.focus();
         if (text.trim() === "") {
             return;
         }

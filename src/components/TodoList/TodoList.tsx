@@ -1,13 +1,16 @@
-// cmd + \ : 에디터 분할
-// control + command + 방향키 : 에디터 이동
 import TodoItem from "../TodoItem/TodoItem";
 import { useState } from "react";
+import { Todo } from "../../App";
 import "./TodoList.scss";
-const TodoList = ({ list, onDelete }) => {
-    // create text state
+
+interface TodoListProps {
+    list: Todo[];
+    onDelete: (id: number) => void;
+}
+
+const TodoList: React.FC<TodoListProps> = ({ list, onDelete }) => {
     const [search, setSearch] = useState("");
-    // create a function to handle text change
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
     };
 
@@ -21,7 +24,7 @@ const TodoList = ({ list, onDelete }) => {
                 {list
                     .filter((todo) => todo.content.toLowerCase().includes(search.toLowerCase()))
                     .map((todo) => (
-                        <TodoItem key={todo.id} todo={todo} onDelete={onDelete} />
+                        <TodoItem key={todo.id} todo={todo} onDelete={() => onDelete(todo.id)} />
                     ))}
             </div>
         </div>

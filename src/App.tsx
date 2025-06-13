@@ -1,13 +1,19 @@
-// 바로 이전 탭으로 돌아가기 ctrl + tab
 import { useState, useRef } from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
 import TodoEditor from "./components/TodoEditor/TodoEditor";
 import TodoList from "./components/TodoList/TodoList";
 
+export interface Todo {
+    id: number;
+    content: string;
+    isDone: boolean;
+    createdDate: number;
+}
+
 function App() {
-    const idRef = useRef(3);
-    const mockTodo = [
+    const idRef = useRef<number>(3);
+    const mockTodo: Todo[] = [
         {
             id: 0,
             isDone: false,
@@ -28,9 +34,12 @@ function App() {
         },
     ];
     class TodoClass {
-        constructor(params = {}) {
+        id: number;
+        content: string;
+        isDone: boolean;
+        createdDate: number | string;
+        constructor(params: Partial<Todo> = {}) {
             const { id = Date.now(), content = "", isDone = false, createdDate = new Date().toDateString() } = params;
-
             this.id = id;
             this.content = content;
             this.isDone = isDone;
@@ -38,41 +47,27 @@ function App() {
         }
     }
 
-    const [todoList, setTodoList] = useState(mockTodo);
+    const [todoList, setTodoList] = useState<Todo[]>(mockTodo);
 
-    const onCreate = (content) => {
-        const newTodo = {
+    const onCreate = (content: string) => {
+        const newTodo: Todo = {
             id: idRef.current++,
             content: content,
             isDone: false,
-            createdDate: new Date().getTime,
+            createdDate: new Date().getTime(),
         };
         setTodoList((prevList) => [newTodo, ...prevList]);
     };
 
-    // const onClickAddTodo = (content) => {
-    //     const newTodo = new TodoClass({
-    //         // make id unique by using the current time in milliseconds
-    //         id: Date.now(),
-    //         content: content,
-    //         createdDate: new Date().toDateString(),
-    //     });
-
-    //     setTodoList((prevList) => [...prevList, newTodo]);
-
-    //     // Reset the input field in TodoEditor
-    //     // This can be done by lifting the state up or using a ref in TodoEditor
-    // };
-
-    const onDeleteTodo = (id) => {
+    const onDeleteTodo = (id: number) => {
         setTodoList((prevList) => prevList.filter((todo) => todo.id !== id));
     };
 
     return (
         <div className="App">
-            <Header></Header>
-            <TodoEditor onCreate={onCreate}></TodoEditor>
-            <TodoList list={todoList} onDelete={onDeleteTodo}></TodoList>
+            <Header />
+            <TodoEditor onCreate={onCreate} />
+            <TodoList list={todoList} onDelete={onDeleteTodo} />
         </div>
     );
 }

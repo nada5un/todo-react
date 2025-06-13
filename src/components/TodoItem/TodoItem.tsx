@@ -1,7 +1,12 @@
-// import css
 import "./TodoItem.scss";
+import { Todo } from "../../App";
 
-const TodoItem = ({ todo, onDelete }) => {
+interface TodoItemProps {
+    todo: Todo;
+    onDelete: () => void;
+}
+
+const TodoItem: React.FC<TodoItemProps> = ({ todo, onDelete }) => {
     return (
         <div className="TodoItem">
             <div className="TodoItem__checkbox">
