@@ -1,7 +1,8 @@
+// commant + \ : 에디터 탭 추가
 import "./TodoEditor.scss";
 import { useState, useRef } from "react";
 
-const TodoEditor = ({ onSubmit }) => {
+const TodoEditor = ({ onCreate }) => {
     const inputRef = useRef(null); // if you want to focus on input after submit
     const [text, setText] = useState("");
 
@@ -14,7 +15,7 @@ const TodoEditor = ({ onSubmit }) => {
         if (text.trim() === "") {
             return;
         }
-        onSubmit(text);
+        onCreate(text);
         setText("");
     };
 
