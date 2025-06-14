@@ -4,14 +4,22 @@ import { Todo } from "../../App";
 interface TodoItemProps {
     todo: Todo;
     onDelete: () => void;
+    onToggle: (id: number, isDone: boolean) => void;
 }
 
-function TodoItem({ todo, onDelete }: TodoItemProps) {
+function TodoItem({ todo, onDelete, onToggle }: TodoItemProps) {
     return (
         <div className="TodoItem">
             <div className="TodoItem__checkbox">
                 <label>
-                    <input type="checkbox" />
+                    <input
+                        type="checkbox"
+                        checked={todo.isDone}
+                        onChange={(e) => {
+                            onToggle(todo.id, e.target.checked);
+                        }}
+                    ></input>
+
                     <span className="custom-checkbox"></span>
                 </label>
             </div>

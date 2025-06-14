@@ -17,7 +17,7 @@ function App() {
         {
             id: 0,
             isDone: false,
-            content: "리액트 공부하기",
+            content: "React 공부하기",
             createdDate: new Date().getTime(),
         },
         {
@@ -50,11 +50,15 @@ function App() {
         setTodoList((prevList) => prevList.filter((todo) => todo.id !== id));
     };
 
+    const onToggleTodo = (id: number, isDone: boolean) => {
+        setTodoList((prevList) => prevList.map((todo) => (todo.id === id ? { ...todo, isDone } : todo)));
+    };
+
     return (
         <div className="App">
             <Header />
             <TodoEditor onCreate={onCreate} />
-            <TodoList list={todoList} onDelete={onDeleteTodo} />
+            <TodoList list={todoList} onDelete={onDeleteTodo} onToggleTodo={onToggleTodo} />
         </div>
     );
 }

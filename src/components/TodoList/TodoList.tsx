@@ -6,9 +6,10 @@ import "./TodoList.scss";
 interface TodoListProps {
     list: Todo[];
     onDelete: (id: number) => void;
+    onToggleTodo: (id: number, isDone: boolean) => void;
 }
 
-function TodoList({ list, onDelete }: TodoListProps) {
+function TodoList({ list, onDelete, onToggleTodo }: TodoListProps) {
     const [search, setSearch] = useState("");
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
@@ -24,7 +25,14 @@ function TodoList({ list, onDelete }: TodoListProps) {
                 {list
                     .filter((todo) => todo.content.toLowerCase().includes(search.toLowerCase()))
                     .map((todo) => (
-                        <TodoItem key={todo.id} todo={todo} onDelete={() => onDelete(todo.id)} />
+                        <TodoItem
+                            key={todo.id}
+                            todo={todo}
+                            onDelete={() => onDelete(todo.id)}
+                            onToggle={(id: number, isDone: boolean) => {
+                                onToggleTodo(id, isDone);
+                            }}
+                        />
                     ))}
             </div>
         </div>
