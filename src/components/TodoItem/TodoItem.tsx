@@ -3,7 +3,7 @@ import { Todo } from "../../App";
 
 interface TodoItemProps {
     todo: Todo;
-    onDelete: () => void;
+    onDelete: (id: number) => void;
     onToggle: (id: number, isDone: boolean) => void;
 }
 
@@ -27,7 +27,7 @@ function TodoItem({ todo, onDelete, onToggle }: TodoItemProps) {
             <div className="TodoItem__date">{new Date().toLocaleDateString()}</div>
             <button
                 onClick={() => {
-                    onDelete();
+                    onDelete(todo.id);
                 }}
                 className="TodoItem__delete"
             >

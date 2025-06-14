@@ -28,10 +28,8 @@ function TodoList({ list, onDelete, onToggleTodo }: TodoListProps) {
                         <TodoItem
                             key={todo.id}
                             todo={todo}
-                            onDelete={() => onDelete(todo.id)}
-                            onToggle={(id: number, isDone: boolean) => {
-                                onToggleTodo(id, isDone);
-                            }}
+                            onDelete={onDelete}
+                            onToggle={onToggleTodo}
                         />
                     ))}
             </div>
