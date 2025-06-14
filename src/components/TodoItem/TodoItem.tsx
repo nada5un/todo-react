@@ -4,7 +4,7 @@ import { Todo } from "../../App";
 interface TodoItemProps {
     todo: Todo;
     onDelete: (id: number) => void;
-    onToggle: (id: number, isDone: boolean) => void;
+    onToggle: (id: number) => void;
 }
 
 function TodoItem({ todo, onDelete, onToggle }: TodoItemProps) {
@@ -16,7 +16,7 @@ function TodoItem({ todo, onDelete, onToggle }: TodoItemProps) {
                         type="checkbox"
                         checked={todo.isDone}
                         onChange={(e) => {
-                            onToggle(todo.id, e.target.checked);
+                            onToggle(todo.id);
                         }}
                     ></input>
 

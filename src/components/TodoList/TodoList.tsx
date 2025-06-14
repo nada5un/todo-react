@@ -6,7 +6,7 @@ import "./TodoList.scss";
 interface TodoListProps {
     list: Todo[];
     onDelete: (id: number) => void;
-    onToggleTodo: (id: number, isDone: boolean) => void;
+    onToggleTodo: (id: number) => void;
 }
 
 function TodoList({ list, onDelete, onToggleTodo }: TodoListProps) {
@@ -25,12 +25,7 @@ function TodoList({ list, onDelete, onToggleTodo }: TodoListProps) {
                 {list
                     .filter((todo) => todo.content.toLowerCase().includes(search.toLowerCase()))
                     .map((todo) => (
-                        <TodoItem
-                            key={todo.id}
-                            todo={todo}
-                            onDelete={onDelete}
-                            onToggle={onToggleTodo}
-                        />
+                        <TodoItem key={todo.id} todo={todo} onDelete={onDelete} onToggle={onToggleTodo} />
                     ))}
             </div>
         </div>

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useReducer } from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
 import TodoEditor from "./components/TodoEditor/TodoEditor";
@@ -12,8 +12,29 @@ export interface Todo {
     createdDate: number;
 }
 
+function reducer(state: any, action: { type: string; newItem?: Todo; id?: number }) {
+    switch (action.type) {
+        case "CREATE":
+            if (!action.newItem) {
+                throw new Error("newItem is required for CREATE action");
+            }
+            return [action.newItem, ...state];
+        case "TOGGLE":
+            if (action.id === undefined) {
+                throw new Error("id is required for TOGGLE action");
+            }
+            return state.map((todo: Todo) => (todo.id === action.id ? { ...todo, isDone: !todo.isDone } : todo));
+        case "DELETE":
+            if (action.id === undefined) {
+                throw new Error("id is required for DELETE action");
+            }
+            return state.filter((todo: Todo) => todo.id !== action.id);
+        default:
+            return state;
+    }
+}
+
 function App() {
-    const idRef = useRef<number>(3);
     const mockTodo: Todo[] = [
         {
             id: 0,
@@ -35,7 +56,13 @@ function App() {
         },
     ];
 
-    const [todoList, setTodoList] = useState<Todo[]>(mockTodo);
+    // useReducer 방식
+    const [todo, dispatch] = useReducer(reducer, mockTodo);
+
+    // 기존 useState 방식
+    // const [todoList, setTodoList] = useState<Todo[]>(mockTodo);
+
+    const idRef = useRef<number>(3);
 
     const onCreate = (content: string) => {
         const newTodo: Todo = {
@@ -44,23 +71,26 @@ function App() {
             isDone: false,
             createdDate: new Date().getTime(),
         };
-        setTodoList((prevList) => [newTodo, ...prevList]);
+
+        dispatch({ type: "CREATE", newItem: newTodo });
+        // setTodoList((prevList) => [newTodo, ...prevList]);
     };
 
     const onDeleteTodo = (id: number) => {
-        setTodoList((prevList) => prevList.filter((todo) => todo.id !== id));
+        dispatch({ type: "DELETE", id });
+        // setTodoList((prevList) => prevList.filter((todo) => todo.id !== id));
     };
 
-    const onToggleTodo = (id: number, isDone: boolean) => {
-        setTodoList((prevList) => prevList.map((todo) => (todo.id === id ? { ...todo, isDone } : todo)));
+    const onToggleTodo = (id: number) => {
+        dispatch({ type: "TOGGLE", id });
+        // setTodoList((prevList) => prevList.map((todo) => (todo.id === id ? { ...todo, isDone } : todo)));
     };
 
     return (
         <div className="App">
-            {/* <TestComp /> */}
             <Header />
             <TodoEditor onCreate={onCreate} />
-            <TodoList list={todoList} onDelete={onDeleteTodo} onToggleTodo={onToggleTodo} />
+            <TodoList list={todo} onDelete={onDeleteTodo} onToggleTodo={onToggleTodo} />
         </div>
     );
 }
