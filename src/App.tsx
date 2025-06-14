@@ -33,19 +33,6 @@ function App() {
             createdDate: new Date().getTime(),
         },
     ];
-    class TodoClass {
-        id: number;
-        content: string;
-        isDone: boolean;
-        createdDate: number | string;
-        constructor(params: Partial<Todo> = {}) {
-            const { id = Date.now(), content = "", isDone = false, createdDate = new Date().toDateString() } = params;
-            this.id = id;
-            this.content = content;
-            this.isDone = isDone;
-            this.createdDate = createdDate;
-        }
-    }
 
     const [todoList, setTodoList] = useState<Todo[]>(mockTodo);
 

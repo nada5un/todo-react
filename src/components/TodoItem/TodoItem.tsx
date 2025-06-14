@@ -6,7 +6,7 @@ interface TodoItemProps {
     onDelete: () => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo, onDelete }) => {
+function TodoItem({ todo, onDelete }: TodoItemProps) {
     return (
         <div className="TodoItem">
             <div className="TodoItem__checkbox">
@@ -27,6 +27,6 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onDelete }) => {
             </button>
         </div>
     );
-};
+}
 
 export default TodoItem;

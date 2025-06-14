@@ -7,19 +7,20 @@ interface TodoEditorProps {
 
 function TodoEditor({ onCreate }: TodoEditorProps) {
     const inputRef = useRef<HTMLInputElement>(null);
-    const [text, setText] = useState("");
+    const [content, setContent] = useState("");
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setText(e.target.value);
+    const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setContent(e.target.value);
     };
 
     const onClickAddTodo = () => {
         inputRef.current?.focus();
-        if (text.trim() === "") {
+        const trimmedContent = content.trim();
+        if (trimmedContent === "") {
             return;
         }
-        onCreate(text);
-        setText("");
+        onCreate(content);
+        setContent("");
     };
 
     return (
@@ -32,7 +33,13 @@ function TodoEditor({ onCreate }: TodoEditorProps) {
                     onClickAddTodo();
                 }}
             >
-                <input ref={inputRef} value={text} onChange={handleChange} type="text" placeholder="새로운 Todo..." />
+                <input
+                    ref={inputRef}
+                    value={content}
+                    onChange={onChangeContent}
+                    type="text"
+                    placeholder="새로운 Todo..."
+                />
                 <button type="submit">추가</button>
             </form>
         </div>

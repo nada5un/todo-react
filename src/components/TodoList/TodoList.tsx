@@ -8,7 +8,7 @@ interface TodoListProps {
     onDelete: (id: number) => void;
 }
 
-const TodoList: React.FC<TodoListProps> = ({ list, onDelete }) => {
+function TodoList({ list, onDelete }: TodoListProps) {
     const [search, setSearch] = useState("");
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
@@ -29,6 +29,6 @@ const TodoList: React.FC<TodoListProps> = ({ list, onDelete }) => {
             </div>
         </div>
     );
-};
+}
 
 export default TodoList;
