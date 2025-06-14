@@ -3,6 +3,7 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import TodoEditor from "./components/TodoEditor/TodoEditor";
 import TodoList from "./components/TodoList/TodoList";
+// import TestComp from "./components/TestComp/TestComp";
 
 export interface Todo {
     id: number;
@@ -56,6 +57,7 @@ function App() {
 
     return (
         <div className="App">
+            {/* <TestComp /> */}
             <Header />
             <TodoEditor onCreate={onCreate} />
             <TodoList list={todoList} onDelete={onDeleteTodo} onToggleTodo={onToggleTodo} />
