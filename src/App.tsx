@@ -1,8 +1,9 @@
-import { useState, useRef, useReducer } from "react";
+import { useRef, useReducer } from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
 import TodoEditor from "./components/TodoEditor/TodoEditor";
 import TodoList from "./components/TodoList/TodoList";
+
 // import TestComp from "./components/TestComp/TestComp";
 
 export interface Todo {
@@ -12,7 +13,10 @@ export interface Todo {
     createdDate: number;
 }
 
-function reducer(state: any, action: { type: string; newItem?: Todo; id?: number }) {
+function reducer(
+    state: any,
+    action: { type: string; newItem?: Todo; id?: number },
+) {
     switch (action.type) {
         case "CREATE":
             if (!action.newItem) {
@@ -23,7 +27,11 @@ function reducer(state: any, action: { type: string; newItem?: Todo; id?: number
             if (action.id === undefined) {
                 throw new Error("id is required for TOGGLE action");
             }
-            return state.map((todo: Todo) => (todo.id === action.id ? { ...todo, isDone: !todo.isDone } : todo));
+            return state.map((todo: Todo) =>
+                todo.id === action.id
+                    ? { ...todo, isDone: !todo.isDone }
+                    : todo,
+            );
         case "DELETE":
             if (action.id === undefined) {
                 throw new Error("id is required for DELETE action");
@@ -90,7 +98,11 @@ function App() {
         <div className="App">
             <Header />
             <TodoEditor onCreate={onCreate} />
-            <TodoList list={todo} onDelete={onDeleteTodo} onToggleTodo={onToggleTodo} />
+            <TodoList
+                list={todo}
+                onDelete={onDeleteTodo}
+                onToggleTodo={onToggleTodo}
+            />
         </div>
     );
 }

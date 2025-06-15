@@ -1,5 +1,5 @@
 import TodoItem from "../TodoItem/TodoItem";
-import { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Todo } from "../../App";
 import "./TodoList.scss";
 
@@ -12,19 +12,14 @@ interface TodoListProps {
 function TodoList({ list, onDelete, onToggleTodo }: TodoListProps) {
     const [search, setSearch] = useState("");
 
-    const analyzeTodo = () => {
+    const analyzeTodo = useMemo(() => {
         const totalCount = list.length;
         const doneCount = list.filter((todo) => todo.isDone).length;
         const notDoneCount = totalCount - doneCount;
+        return { totalCount, doneCount, notDoneCount };
+    }, [list]);
 
-        return {
-            totalCount,
-            doneCount,
-            notDoneCount,
-        };
-    };
-
-    const { totalCount, doneCount, notDoneCount } = analyzeTodo();
+    const { totalCount, doneCount, notDoneCount } = analyzeTodo;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
@@ -33,7 +28,6 @@ function TodoList({ list, onDelete, onToggleTodo }: TodoListProps) {
     return (
         <div className="TodoList">
             <h3>Todo List</h3>
-
             <div className="TodoList__analyze">
                 <span>총 할 일: {totalCount}</span>
                 <span>완료된 할 일: {doneCount}</span>
@@ -41,13 +35,28 @@ function TodoList({ list, onDelete, onToggleTodo }: TodoListProps) {
             </div>
 
             <div className="TodoList__searchbar">
-                <input value={search} type="text" placeholder="검색어를 입력하세요" onChange={handleChange} />
+                <input
+                    value={search}
+                    type="text"
+                    placeholder="검색어를 입력하세요"
+                    onChange={handleChange}
+                />
             </div>
+
             <div className="TodoList__items">
                 {list
-                    .filter((todo) => todo.content.toLowerCase().includes(search.toLowerCase()))
+                    .filter((todo) =>
+                        todo.content
+                            .toLowerCase()
+                            .includes(search.toLowerCase()),
+                    )
                     .map((todo) => (
-                        <TodoItem key={todo.id} todo={todo} onDelete={onDelete} onToggle={onToggleTodo} />
+                        <TodoItem
+                            key={todo.id}
+                            todo={todo}
+                            onDelete={onDelete}
+                            onToggle={onToggleTodo}
+                        />
                     ))}
             </div>
         </div>
