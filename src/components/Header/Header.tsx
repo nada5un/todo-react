@@ -1,4 +1,5 @@
 import "./Header.css";
+import React from "react";
 
 interface HeaderProps {}
 
@@ -11,4 +12,4 @@ function Header({}: HeaderProps) {
     );
 }
 
-export default Header;
+export default React.memo(Header);

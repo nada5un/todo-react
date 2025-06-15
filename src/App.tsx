@@ -1,4 +1,4 @@
-import { useRef, useReducer } from "react";
+import { useRef, useReducer, useCallback } from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
 import TodoEditor from "./components/TodoEditor/TodoEditor";
@@ -81,18 +81,15 @@ function App() {
         };
 
         dispatch({ type: "CREATE", newItem: newTodo });
-        // setTodoList((prevList) => [newTodo, ...prevList]);
     };
 
-    const onDeleteTodo = (id: number) => {
-        dispatch({ type: "DELETE", id });
-        // setTodoList((prevList) => prevList.filter((todo) => todo.id !== id));
-    };
-
-    const onToggleTodo = (id: number) => {
+    const onToggleTodo = useCallback((id: number) => {
         dispatch({ type: "TOGGLE", id });
-        // setTodoList((prevList) => prevList.map((todo) => (todo.id === id ? { ...todo, isDone } : todo)));
-    };
+    }, []);
+
+    const onDeleteTodo = useCallback((id: number) => {
+        dispatch({ type: "DELETE", id });
+    }, []);
 
     return (
         <div className="App">

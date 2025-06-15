@@ -1,5 +1,6 @@
 import "./TodoItem.scss";
 import { Todo } from "../../App";
+import React from "react";
 
 interface TodoItemProps {
     todo: Todo;
@@ -24,7 +25,9 @@ function TodoItem({ todo, onDelete, onToggle }: TodoItemProps) {
                 </label>
             </div>
             <div className="TodoItem__title">{todo.content}</div>
-            <div className="TodoItem__date">{new Date().toLocaleDateString()}</div>
+            <div className="TodoItem__date">
+                {new Date().toLocaleDateString()}
+            </div>
             <button
                 onClick={() => {
                     onDelete(todo.id);
@@ -37,4 +40,4 @@ function TodoItem({ todo, onDelete, onToggle }: TodoItemProps) {
     );
 }
 
-export default TodoItem;
+export default React.memo(TodoItem);
