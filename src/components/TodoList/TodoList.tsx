@@ -13,6 +13,9 @@ function TodoList({ list, onDelete, onToggleTodo }: TodoListProps) {
     const [search, setSearch] = useState("");
 
     const analyzeTodo = useMemo(() => {
+        if (!list || list.length === 0) {
+            return { totalCount: 0, doneCount: 0, notDoneCount: 0 };
+        }
         const totalCount = list.length;
         const doneCount = list.filter((todo) => todo.isDone).length;
         const notDoneCount = totalCount - doneCount;
@@ -45,7 +48,7 @@ function TodoList({ list, onDelete, onToggleTodo }: TodoListProps) {
 
             <div className="TodoList__items">
                 {list
-                    .filter((todo) =>
+                    ?.filter((todo) =>
                         todo.content
                             .toLowerCase()
                             .includes(search.toLowerCase()),
@@ -62,5 +65,10 @@ function TodoList({ list, onDelete, onToggleTodo }: TodoListProps) {
         </div>
     );
 }
+
+// set TodoList list default to empty array
+TodoList.defaultProps = {
+    list: [],
+};
 
 export default TodoList;

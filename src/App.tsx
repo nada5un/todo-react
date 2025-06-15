@@ -1,4 +1,4 @@
-import { useRef, useReducer, useCallback } from "react";
+import React, { useRef, useReducer, useCallback } from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
 import TodoEditor from "./components/TodoEditor/TodoEditor";
@@ -42,6 +42,8 @@ function reducer(
     }
 }
 
+const TodoContext = React.createContext<null>(null);
+
 function App() {
     const mockTodo: Todo[] = [
         {
@@ -64,11 +66,7 @@ function App() {
         },
     ];
 
-    // useReducer 방식
     const [todo, dispatch] = useReducer(reducer, mockTodo);
-
-    // 기존 useState 방식
-    // const [todoList, setTodoList] = useState<Todo[]>(mockTodo);
 
     const idRef = useRef<number>(3);
 
@@ -94,12 +92,19 @@ function App() {
     return (
         <div className="App">
             <Header />
-            <TodoEditor onCreate={onCreate} />
-            <TodoList
-                list={todo}
-                onDelete={onDeleteTodo}
-                onToggleTodo={onToggleTodo}
-            />
+            <TodoContext.Provider
+                value={
+                    {
+                        todo,
+                        onCreate,
+                        onToggleTodo,
+                        onDeleteTodo,
+                    } as any
+                }
+            >
+                <TodoEditor />
+                <TodoList />
+            </TodoContext.Provider>
         </div>
     );
 }
