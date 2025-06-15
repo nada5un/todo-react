@@ -1,13 +1,21 @@
 import "./TodoEditor.scss";
-import { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
+import { TodoContext } from "../../App";
 
 interface TodoEditorProps {
     onCreate: (content: string) => void;
 }
 
-function TodoEditor({ onCreate }: TodoEditorProps) {
+function TodoEditor() {
     const inputRef = useRef<HTMLInputElement>(null);
     const [content, setContent] = useState("");
+    const storeData = useContext(TodoContext);
+
+    if (!storeData) {
+        throw new Error("TodoList must be used within a TodoContext.Provider");
+    }
+
+    const { onCreate } = storeData as TodoEditorProps;
 
     const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
         setContent(e.target.value);

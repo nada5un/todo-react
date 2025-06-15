@@ -1,6 +1,7 @@
+// fn + control + command + -> : Move to Opposite Group
 import TodoItem from "../TodoItem/TodoItem";
-import React, { useState, useMemo } from "react";
-import { Todo } from "../../App";
+import React, { useState, useMemo, useContext } from "react";
+import { Todo, TodoContext } from "../../App";
 import "./TodoList.scss";
 
 interface TodoListProps {
@@ -9,8 +10,16 @@ interface TodoListProps {
     onToggleTodo: (id: number) => void;
 }
 
-function TodoList({ list, onDelete, onToggleTodo }: TodoListProps) {
+function TodoList() {
     const [search, setSearch] = useState("");
+
+    const storeData = useContext(TodoContext);
+
+    if (!storeData) {
+        throw new Error("TodoList must be used within a TodoContext.Provider");
+    }
+
+    const { list, onDelete, onToggleTodo } = storeData as TodoListProps;
 
     const analyzeTodo = useMemo(() => {
         if (!list || list.length === 0) {
@@ -53,14 +62,7 @@ function TodoList({ list, onDelete, onToggleTodo }: TodoListProps) {
                             .toLowerCase()
                             .includes(search.toLowerCase()),
                     )
-                    .map((todo) => (
-                        <TodoItem
-                            key={todo.id}
-                            todo={todo}
-                            onDelete={onDelete}
-                            onToggle={onToggleTodo}
-                        />
-                    ))}
+                    .map((todo) => <TodoItem key={todo.id} todo={todo} />)}
             </div>
         </div>
     );

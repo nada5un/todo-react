@@ -1,14 +1,23 @@
 import "./TodoItem.scss";
-import { Todo } from "../../App";
+import { Todo, TodoContext } from "../../App";
 import React from "react";
 
 interface TodoItemProps {
     todo: Todo;
-    onDelete: (id: number) => void;
-    onToggle: (id: number) => void;
 }
 
-function TodoItem({ todo, onDelete, onToggle }: TodoItemProps) {
+function TodoItem({ todo }: TodoItemProps) {
+    const storeData = React.useContext(TodoContext);
+
+    if (!storeData) {
+        throw new Error("TodoItem must be used within a TodoContext.Provider");
+    }
+
+    const { onDeleteTodo: onDelete, onToggleTodo: onToggle } = storeData as {
+        onDeleteTodo: (id: number) => void;
+        onToggleTodo: (id: number) => void;
+    };
+    
     return (
         <div className="TodoItem">
             <div className="TodoItem__checkbox">

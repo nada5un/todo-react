@@ -42,7 +42,7 @@ function reducer(
     }
 }
 
-const TodoContext = React.createContext<null>(null);
+export const TodoContext = React.createContext<null>(null);
 
 function App() {
     const mockTodo: Todo[] = [
@@ -66,7 +66,7 @@ function App() {
         },
     ];
 
-    const [todo, dispatch] = useReducer(reducer, mockTodo);
+    const [list, dispatch] = useReducer(reducer, mockTodo);
 
     const idRef = useRef<number>(3);
 
@@ -95,7 +95,7 @@ function App() {
             <TodoContext.Provider
                 value={
                     {
-                        todo,
+                        list,
                         onCreate,
                         onToggleTodo,
                         onDeleteTodo,
