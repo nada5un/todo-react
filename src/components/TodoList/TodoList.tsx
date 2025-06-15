@@ -11,6 +11,21 @@ interface TodoListProps {
 
 function TodoList({ list, onDelete, onToggleTodo }: TodoListProps) {
     const [search, setSearch] = useState("");
+
+    const analyzeTodo = () => {
+        const totalCount = list.length;
+        const doneCount = list.filter((todo) => todo.isDone).length;
+        const notDoneCount = totalCount - doneCount;
+
+        return {
+            totalCount,
+            doneCount,
+            notDoneCount,
+        };
+    };
+
+    const { totalCount, doneCount, notDoneCount } = analyzeTodo();
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
     };
@@ -18,6 +33,13 @@ function TodoList({ list, onDelete, onToggleTodo }: TodoListProps) {
     return (
         <div className="TodoList">
             <h3>Todo List</h3>
+
+            <div className="TodoList__analyze">
+                <span>총 할 일: {totalCount}</span>
+                <span>완료된 할 일: {doneCount}</span>
+                <span>미완료 할 일: {notDoneCount}</span>
+            </div>
+
             <div className="TodoList__searchbar">
                 <input value={search} type="text" placeholder="검색어를 입력하세요" onChange={handleChange} />
             </div>

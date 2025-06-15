@@ -23,6 +23,12 @@
         }
     }
 
+    &__analyze {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
     &__items {
         display: flex;
         flex-direction: column;
