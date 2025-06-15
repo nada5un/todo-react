@@ -1,25 +1,17 @@
 // fn + control + command + -> : Move to Opposite Group
 import TodoItem from "../TodoItem/TodoItem";
 import React, { useState, useMemo, useContext } from "react";
-import { Todo, TodoContext } from "../../App";
+import { Todo, TodoContext, TodoListContext } from "../../App";
 import "./TodoList.scss";
 
 interface TodoListProps {
     list: Todo[];
-    onDelete: (id: number) => void;
-    onToggleTodo: (id: number) => void;
 }
 
 function TodoList() {
+    const list = useContext(TodoListContext);
+
     const [search, setSearch] = useState("");
-
-    const storeData = useContext(TodoContext);
-
-    if (!storeData) {
-        throw new Error("TodoList must be used within a TodoContext.Provider");
-    }
-
-    const { list, onDelete, onToggleTodo } = storeData as TodoListProps;
 
     const analyzeTodo = useMemo(() => {
         if (!list || list.length === 0) {

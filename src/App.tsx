@@ -1,4 +1,4 @@
-import React, { useRef, useReducer, useCallback } from "react";
+import React, { useRef, useReducer, useCallback, useMemo } from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
 import TodoEditor from "./components/TodoEditor/TodoEditor";
@@ -42,6 +42,13 @@ function reducer(
     }
 }
 
+export const TodoListContext = React.createContext<Todo[] | null>(null);
+export const TodoDispatchContext = React.createContext<{
+    onCreateTodo: (content: string) => void;
+    onToggleTodo: (id: number) => void;
+    onDeleteTodo: (id: number) => void;
+} | null>(null);
+
 export const TodoContext = React.createContext<null>(null);
 
 function App() {
@@ -70,7 +77,7 @@ function App() {
 
     const idRef = useRef<number>(3);
 
-    const onCreate = (content: string) => {
+    const onCreateTodo = (content: string) => {
         const newTodo: Todo = {
             id: idRef.current++,
             content: content,
@@ -89,22 +96,19 @@ function App() {
         dispatch({ type: "DELETE", id });
     }, []);
 
+    const memoizedList = useMemo(() => {
+        return { onCreateTodo, onToggleTodo, onDeleteTodo };
+    }, []);
+
     return (
         <div className="App">
             <Header />
-            <TodoContext.Provider
-                value={
-                    {
-                        list,
-                        onCreate,
-                        onToggleTodo,
-                        onDeleteTodo,
-                    } as any
-                }
-            >
-                <TodoEditor />
-                <TodoList />
-            </TodoContext.Provider>
+            <TodoListContext.Provider value={list}>
+                <TodoDispatchContext.Provider value={memoizedList}>
+                    <TodoEditor />
+                    <TodoList />
+                </TodoDispatchContext.Provider>
+            </TodoListContext.Provider>
         </div>
     );
 }

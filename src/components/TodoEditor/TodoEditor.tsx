@@ -1,21 +1,23 @@
 import "./TodoEditor.scss";
 import React, { useState, useRef, useContext } from "react";
-import { TodoContext } from "../../App";
+import { TodoContext, TodoDispatchContext } from "../../App";
 
 interface TodoEditorProps {
-    onCreate: (content: string) => void;
+    onCreateTodo: (content: string) => void;
 }
 
 function TodoEditor() {
-    const inputRef = useRef<HTMLInputElement>(null);
+    const storeData = useContext(TodoDispatchContext);
+
     const [content, setContent] = useState("");
-    const storeData = useContext(TodoContext);
+
+    const inputRef = useRef<HTMLInputElement>(null);
 
     if (!storeData) {
         throw new Error("TodoList must be used within a TodoContext.Provider");
     }
 
-    const { onCreate } = storeData as TodoEditorProps;
+    const { onCreateTodo } = storeData as TodoEditorProps;
 
     const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
         setContent(e.target.value);
@@ -27,7 +29,7 @@ function TodoEditor() {
         if (trimmedContent === "") {
             return;
         }
-        onCreate(content);
+        onCreateTodo(content);
         setContent("");
     };
 
